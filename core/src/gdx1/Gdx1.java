@@ -40,17 +40,6 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
     @Override
     public void render() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if (f == 1) {
-            Gdx.gl.glClearColor(1, 0, 0, 1);
-        } else if (f == 2) {
-            Gdx.gl.glClearColor(0, 1, 0, 1);
-        } else if (f == 3) {
-            Gdx.gl.glClearColor(0, 0, 1, 1);
-        } else if (f == 4) {
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-        } else if (f == 0) {
-            Gdx.gl.glClearColor(1, 1, 1, 1);
-        }
         batch.begin();
         sprite.draw(batch);
         batch.end();
@@ -74,16 +63,16 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
         float YMid = Gdx.graphics.getHeight() / 2;
         if (button == Buttons.LEFT && screenX < XMid && screenY < YMid) {
             //Top Left
-            f = 1;
+            Gdx.gl.glClearColor(1, 0, 0, 1);
         } else if (button == Buttons.LEFT && screenX < XMid && screenY > YMid) {
             //Top Right
-            f = 2;
+            Gdx.gl.glClearColor(0, 1, 0, 1);
         } else if (button == Buttons.LEFT && screenX > XMid && screenY < YMid) {
             //Bottom Left
-            f = 3;
+            Gdx.gl.glClearColor(0, 0, 1, 1);
         } else if (button == Buttons.LEFT && screenX > XMid && screenY > YMid) {
             //Bottom Right
-            f = 4;
+            Gdx.gl.glClearColor(0, 0, 0, 1);
         }
         System.out.println(screenX + " screenX " + screenY + " screenY");
         return false;
