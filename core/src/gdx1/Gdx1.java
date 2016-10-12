@@ -2,7 +2,7 @@ package gdx1;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,20 +14,21 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private Texture texture;
     private Sprite sprite;
+    private int f = 0;
     private boolean isLeft, isRight;
 
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
+        float XMid = Gdx.graphics.getWidth() / 2;
+        float YMid = Gdx.graphics.getHeight() / 2;
         batch = new SpriteBatch();
-
         texture = new Texture(Gdx.files.internal("CoreSprite.png"));
         sprite = new Sprite(texture);
-        sprite.setPosition(w / 2 - sprite.getWidth() / 2, h / 2 - 
-                sprite.getHeight() / 2);
+        sprite.setPosition(w / 2 - sprite.getWidth() / 2, h / 2
+                - sprite.getHeight() / 2);
         Gdx.input.setInputProcessor(this);
-
     }
 
     @Override
@@ -38,12 +39,17 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if (isLeft) {
-            sprite.translateX(-1f);
-        } if (isRight) {
-            sprite.translateX(1f);
+        if (f == 1) {
+            Gdx.gl.glClearColor(1, 0, 0, 1);
+        } else if (f == 2) {
+            Gdx.gl.glClearColor(0, 1, 0, 1);
+        } else if (f == 3) {
+            Gdx.gl.glClearColor(0, 0, 1, 1);
+        } else if (f == 4) {
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+        } else if (f == 0) {
+            Gdx.gl.glClearColor(1, 1, 1, 1);
         }
         batch.begin();
         sprite.draw(batch);
@@ -63,24 +69,23 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
     }
 
     @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Keys.LEFT) {
-            isLeft = true;
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        float XMid = Gdx.graphics.getWidth() / 2;
+        float YMid = Gdx.graphics.getHeight() / 2;
+        if (button == Buttons.LEFT && screenX < XMid && screenY < YMid) {
+            //Top Left
+            f = 1;
+        } else if (button == Buttons.LEFT && screenX < XMid && screenY > YMid) {
+            //Top Right
+            f = 2;
+        } else if (button == Buttons.LEFT && screenX > XMid && screenY < YMid) {
+            //Bottom Left
+            f = 3;
+        } else if (button == Buttons.LEFT && screenX > XMid && screenY > YMid) {
+            //Bottom Right
+            f = 4;
         }
-        if (keycode == Keys.RIGHT) {
-            isRight = true;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        if (keycode == Keys.LEFT) {
-            isLeft = false;
-        }
-        if (keycode == Keys.RIGHT) {
-            isRight = false;
-        }
-        return true;
+        System.out.println(screenX + " screenX " + screenY + " screenY");
+        return false;
     }
 }
