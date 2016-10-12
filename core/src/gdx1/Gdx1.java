@@ -12,20 +12,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Gdx1 extends InputAdapter implements ApplicationListener {
 
     private SpriteBatch batch;
-    private Texture texture;
+    private Texture img;
     private Sprite sprite;
-    private int f = 0;
     private boolean isLeft, isRight;
+    private float XMid, YMid;
 
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        float XMid = Gdx.graphics.getWidth() / 2;
-        float YMid = Gdx.graphics.getHeight() / 2;
+        XMid = Gdx.graphics.getWidth() / 2;
+        YMid = Gdx.graphics.getHeight() / 2;
         batch = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("CoreSprite.png"));
-        sprite = new Sprite(texture);
+        img = new Texture("CoreSprite.png");
+        sprite = new Sprite(img);
         sprite.setPosition(w / 2 - sprite.getWidth() / 2, h / 2
                 - sprite.getHeight() / 2);
         Gdx.input.setInputProcessor(this);
@@ -34,7 +34,7 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
     @Override
     public void dispose() {
         batch.dispose();
-        texture.dispose();
+        img.dispose();
     }
 
     @Override
@@ -59,8 +59,6 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        float XMid = Gdx.graphics.getWidth() / 2;
-        float YMid = Gdx.graphics.getHeight() / 2;
         if (button == Buttons.LEFT && screenX < XMid && screenY < YMid) {
             //Top Left
             Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -74,7 +72,7 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
             //Bottom Right
             Gdx.gl.glClearColor(0, 0, 0, 1);
         }
-        System.out.println(screenX + " screenX " + screenY + " screenY");
-        return false;
+        //System.out.println(screenX + " screenX " + screenY + " screenY");
+        return true;
     }
 }
