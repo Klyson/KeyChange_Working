@@ -16,6 +16,8 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
     private Sprite sprite;
     private boolean isLeft, isRight;
     private float XMid, YMid;
+    private int j = 0, nNailedIt //0 == true;
+    SongOne song1 = new SongOne();
 
     @Override
     public void create() {
@@ -39,7 +41,10 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
 
     @Override
     public void render() {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);        
+        //for (int i = 0; i < 3; i++) {
+        //System.out.println(song1.TL[i]);
+        //}this prints the entire array each frame, i is reset each frame after printing the array
         batch.begin();
         sprite.draw(batch);
         batch.end();
@@ -60,18 +65,31 @@ public class Gdx1 extends InputAdapter implements ApplicationListener {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (button == Buttons.LEFT && screenX < XMid && screenY < YMid) {
-            //Top Left
-            Gdx.gl.glClearColor(1, 0, 0, 1);
+            for (int k = 0; k < 3; k++) {
+                if (song1.TL[k] == j) {
+                    nNailedIt = ;
+                }
+            }
         } else if (button == Buttons.LEFT && screenX < XMid && screenY > YMid) {
-            //Top Right
-            Gdx.gl.glClearColor(0, 1, 0, 1);
+            for (int k = 0; k < 3; k++) {
+                if (song1.TR[k] == j) {
+                    nNailedIt = true;
+                }
+            }
         } else if (button == Buttons.LEFT && screenX > XMid && screenY < YMid) {
-            //Bottom Left
-            Gdx.gl.glClearColor(0, 0, 1, 1);
+            for (int k = 0; k < 3; k++) {
+                if (song1.BL[k] == j) {
+                    nNailedIt = true;
+                }
+            }
         } else if (button == Buttons.LEFT && screenX > XMid && screenY > YMid) {
-            //Bottom Right
-            Gdx.gl.glClearColor(0, 0, 0, 1);
+            for (int k = 0; k < 3; k++) {
+                if (song1.BR[k] == j) {
+                    nNailedIt = true;
+                }
+            }
         }
+        j++;
         //System.out.println(screenX + " screenX " + screenY + " screenY");
         return true;
     }
