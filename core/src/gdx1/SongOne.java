@@ -5,8 +5,8 @@
 package gdx1;
 
 public class SongOne {
-    int[][][][] TL = new int [] {1, 2, 3} [] {4, 5, 6} ;
-    int[] TR = new int [] {4, 5, 6};
-    int[] BL = new int [] {7, 8, 9};
-    int[] BR = new int [] {10, 11, 12};
+    int[] TL = new int [] {1, 5, 9};
+    int[] TR = new int [] {2, 6, 10};
+    int[] BL = new int [] {3, 7, 11};
+    int[] BR = new int [] {4, 8, 12};
 }
